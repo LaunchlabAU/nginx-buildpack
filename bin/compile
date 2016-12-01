@@ -15,6 +15,7 @@ main() {
     NGINX_DEVEL_KIT_VERSION=0.2.19
     NGINX_LUA_VERSION=0.9.18
     RESTY_REDIS_VERSION=0.21
+    NPS_VERSION=1.11.33.4
 
     set -eo pipefail
 
@@ -80,6 +81,7 @@ build-nginx() {
     declare headers_more_url=https://github.com/agentzh/headers-more-nginx-module/archive/v$NGINX_HEADERS_MORE_VERSION.tar.gz
     declare devel_kit_url=https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEVEL_KIT_VERSION.tar.gz
     declare nginx_lua_url=https://github.com/openresty/lua-nginx-module/archive/v$NGINX_LUA_VERSION.tar.gz
+    declare nps_url=https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip
 
     (
         set-indent
@@ -93,6 +95,12 @@ build-nginx() {
         curl -#L $headers_more_url | tar xz
         curl -#L $devel_kit_url | tar xz
         curl -#L $nginx_lua_url | tar xz
+        curl -O $nps_url
+        unzip release-${NPS_VERSION}-beta.zip
+        cd ngx_pagespeed-release-${NPS_VERSION}-beta/
+        curl -O https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz
+        tar -xzvf ${NPS_VERSION}.tar.gz
+        cd ..
 
         patch -p1 < $BUILDPACK_DIR/nginx-$NGINX_VERSION-heroku.patch
 
@@ -105,6 +113,7 @@ build-nginx() {
             --add-module=$PWD/headers-more-nginx-module-$NGINX_HEADERS_MORE_VERSION \
             --add-module=$PWD/ngx_devel_kit-$NGINX_DEVEL_KIT_VERSION \
             --add-module=$PWD/lua-nginx-module-$NGINX_LUA_VERSION \
+            --add-module=$PWD/ngx_pagespeed-release-${NPS_VERSION}-beta \
             --with-http_addition_module \
             --with-http_dav_module \
             --with-http_gzip_static_module \
