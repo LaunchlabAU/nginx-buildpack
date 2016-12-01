@@ -96,10 +96,10 @@ build-nginx() {
         curl -#L $headers_more_url | tar xz
         curl -#L $devel_kit_url | tar xz
         curl -#L $nginx_lua_url | tar xz
-        curl -O $nps_url
+        wget $nps_url
         unzip release-${NPS_VERSION}-beta.zip
         cd ngx_pagespeed-release-${NPS_VERSION}-beta/
-        curl -O https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz
+        wget https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz
         tar -xzvf ${NPS_VERSION}.tar.gz
         cd ..
 
