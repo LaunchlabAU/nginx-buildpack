@@ -38,6 +38,7 @@ main() {
 
     install $CACHE_DIR/sbin/nginx bin/nginx
     install $BUILDPACK_DIR/bin/start-nginx bin/start-nginx
+    mkdir $BUILDPACK_DIR/pagespeed_cache
     cond-install $BUILDPACK_DIR/config/mime.types config/mime.types
     cond-install $BUILDPACK_DIR/config/nginx.conf.erb config/nginx.conf.erb
     install-nginx-lua
