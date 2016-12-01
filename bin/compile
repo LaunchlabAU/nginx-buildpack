@@ -21,8 +21,8 @@ main() {
 
     load-env
 
-    announce "Building LuaJIT $LUA_JIT_VERSION"
-    build-lua
+    #announce "Building LuaJIT $LUA_JIT_VERSION"
+    #build-lua
 
     declare cached_version
     # if ! is-enabled "$NGINX_FORCE_BUILD"; then
@@ -41,7 +41,7 @@ main() {
     mkdir $BUILD_DIR/pagespeed_cache
     cond-install $BUILDPACK_DIR/config/mime.types config/mime.types
     cond-install $BUILDPACK_DIR/config/nginx.conf.erb config/nginx.conf.erb
-    install-nginx-lua
+    #install-nginx-lua
 }
 
 load-env() {
@@ -113,7 +113,6 @@ build-nginx() {
             --with-pcre=pcre-$NGINX_PCRE_VERSION \
             --add-module=$PWD/headers-more-nginx-module-$NGINX_HEADERS_MORE_VERSION \
             --add-module=$PWD/ngx_devel_kit-$NGINX_DEVEL_KIT_VERSION \
-            --add-module=$PWD/lua-nginx-module-$NGINX_LUA_VERSION \
             --add-module=$PWD/ngx_pagespeed-release-${NPS_VERSION}-beta \
             --with-http_addition_module \
             --with-http_dav_module \
@@ -123,6 +122,8 @@ build-nginx() {
             --with-http_ssl_module \
             --with-http_sub_module \
             --with-http_xslt_module
+            #--add-module=$PWD/lua-nginx-module-$NGINX_LUA_VERSION \
+
         make -j4
 
         mkdir -p $nginx_install_dir
