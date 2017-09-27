@@ -78,7 +78,7 @@ build-nginx() {
     declare nginx_build_dir=/tmp/nginx-build
 
     declare nginx_url=http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
-    declare pcre_url=http://downloads.sourceforge.net/project/pcre/pcre/$NGINX_PCRE_VERSION/pcre-$NGINX_PCRE_VERSION.tar.bz2
+    declare pcre_url=https://s3-ap-southeast-2.amazonaws.com/launchlab-resources/pcre-$NGINX_PCRE_VERSION.tar.bz2
     declare headers_more_url=https://github.com/agentzh/headers-more-nginx-module/archive/v$NGINX_HEADERS_MORE_VERSION.tar.gz
     declare devel_kit_url=https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEVEL_KIT_VERSION.tar.gz
     declare nginx_lua_url=https://github.com/openresty/lua-nginx-module/archive/v$NGINX_LUA_VERSION.tar.gz
